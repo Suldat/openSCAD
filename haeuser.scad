@@ -98,7 +98,7 @@ module house(lx,ly,lz,px,pz,s_window,h_baum)
     rotate([0,0,90])
     color([51/255,51/255,51/255])
     resize([ly/2,(lx+0.2),(lz+0.2)])    
-    cylinder(h=(ly/3), r1=2, r2=2,center=true, $fn=10);
+    cylinder(h=(ly/3), r1=2, r2=2,center=true, $fn=3);
     
     //Schornstein
     //translate([(3/4)*px,ly,lz/2])
