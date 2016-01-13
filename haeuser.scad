@@ -27,14 +27,14 @@ module Strasse(anzahlHaeuser = 10) {
     
     for(i=[0:anzahlHaeuser-1]) {
             translate([randNum[0]*i+1*i,0,-randNum[2]/2-5]) {
-                house(randNum[0],randNum[1],randNum[2],0,0,1);
+                house(randNum[0],randNum[1],randNum[2],0,0,1,randNum[3]/2);
             }
         }
         
     mirror([0,0,1]) {
         for(i=[0:anzahlHaeuser-1]) {
             translate([randNum[0]*i+1*i,0,-randNum[2]/2-5]) {
-                house(randNum[0],randNum[1],randNum[2],0,0,1);
+                house(randNum[0],randNum[1],randNum[2],0,0,1,randNum[3]);
             }
         }
     }
@@ -57,7 +57,7 @@ module house Parameter:
 //Position px,pz
 //s_window: wenn 1 dann haben die Seiten auch Fenster, wenn 0, dann sind nur vorne und hinten Fenster
 
-module house(lx,ly,lz,px,pz,s_window)
+module house(lx,ly,lz,px,pz,s_window,h_baum)
 {
     
     //Haus
@@ -66,7 +66,31 @@ module house(lx,ly,lz,px,pz,s_window)
     cube([lx,ly,lz],center = true);
         }
     }
-   
+
+    //Garten
+    translate([px,0.5,pz-lz]){
+       color("Goldenrod"){
+   		  	difference() {
+				cube([lx,1,lz],center = true);
+				translate([0,0,0.125]) 
+					cube([lx-0.25,1.1,lz],center = true);
+			}
+       }
+		 color("LawnGreen"){
+			translate([0,-0.5,0])
+				cube([lx,0.05,lz],center = true);
+		 }
+    }
+	
+	 //BaumImGarten
+	 translate([px+lx*0.25,0,pz-lz*1.25]){
+	  	 color("SaddleBrown")
+		 rotate([-90,0,0])
+		 cylinder(h_baum,0.25,0.25,false,$fn=20);
+		 color("Green")
+		 translate([0,h_baum,0])
+		 sphere(1,$fn=10);
+ 	 }
     
     //Dach 
     //stehen auf jeder Seite um 0.1 über
@@ -74,7 +98,7 @@ module house(lx,ly,lz,px,pz,s_window)
     rotate([0,0,90])
     color([51/255,51/255,51/255])
     resize([ly/2,(lx+0.2),(lz+0.2)])    
-    cylinder(h=(ly/3), r1=2, r2=2,center=true, $fn=3);
+    cylinder(h=(ly/3), r1=2, r2=2,center=true, $fn=10);
     
     //Schornstein
     //translate([(3/4)*px,ly,lz/2])
