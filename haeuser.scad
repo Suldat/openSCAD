@@ -17,16 +17,28 @@ for(i=[0:3]) {
 }*/
 //Häuserreihe
 
-anzahlHaeuser = 10;
-xPos = 0;
-randNum = rands(3,10,4);
+Strasse(8);
 
-for(i=[0:anzahlHaeuser-1]) {
-    translate([randNum[0]*i+1*i,0,-randNum[2]/2-5]) {
-        house(randNum[0],randNum[1],randNum[2],0,0,1);
+//Eine Straße mit n Häusern. Die stehen sich gegenüber.
+module Strasse(anzahlHaeuser = 10) {
+    
+    xPos = 0;
+    randNum = rands(3,10,4);
+    
+    for(i=[0:anzahlHaeuser-1]) {
+            translate([randNum[0]*i+1*i,0,-randNum[2]/2-5]) {
+                house(randNum[0],randNum[1],randNum[2],0,0,1);
+            }
+        }
+        
+    mirror([0,0,1]) {
+        for(i=[0:anzahlHaeuser-1]) {
+            translate([randNum[0]*i+1*i,0,-randNum[2]/2-5]) {
+                house(randNum[0],randNum[1],randNum[2],0,0,1);
+            }
+        }
     }
 }
-
 
 /*
 module house Parameter:
