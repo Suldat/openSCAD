@@ -1,8 +1,29 @@
-
+/*
 house(4,3,2,6,11,1);
 house(7,4,3,12,3,1);
 house(6,5,5,-7,5,1);
 house(4,4,4,3,2,1);
+*/
+
+/*Beispiel-Code:
+random_vect=rands(5,15,4);
+echo( "Random Vector: ",random_vect);
+sphere(r=5);
+for(i=[0:3]) {
+ rotate(360*i/4) {
+   translate([10+random_vect[i],0,0])
+     sphere(r=random_vect[i]/2);
+ }
+}*/
+
+anzahlHaeuser = 10;
+xPos = 0;
+randNum = rands(3,10,4);
+for(i=[0:anzahlHaeuser-1]) {
+    translate([randNum[0]*i+1*i,0,-randNum[2]/2-5]) {
+        house(randNum[0],randNum[1],randNum[2],0,0,1);
+    }
+}
 
 /*
 module house Parameter:
@@ -11,7 +32,7 @@ module house Parameter:
 -Tiefe (Z-Achse)
 -X-Position
 -Z-Position
--Ob es Fenster an den Seiten hat
+-Ob es Fenster an den Seiten hat (0 oder 1)
 
 */
 
